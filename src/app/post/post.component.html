@@ -5,10 +5,11 @@
   </section>
   <aside class="aside">
     <h3>Jokes you might enjoy</h3>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
     <div class="card-container card-container--list">
       <button
-        *ngFor="let post of posts"
-        [routerLink]="['/post', post.id]"
+        *ngFor="let post of posts | myPipe:slug"
+        [routerLink]="['/post', post.slug]"
         class="card card-small"
       >
         <span>{{ post.title }}</span>
