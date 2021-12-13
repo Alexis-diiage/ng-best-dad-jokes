@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ServiceService } from '../api/service/service.service';
 import { postsMock } from '../data/posts.mock';
 import { Post } from '../models/post.interface';
@@ -14,16 +14,23 @@ export class PostComponent implements OnInit {
   post?: Post;
   isLoading = false;
 
-  constructor(private route: ActivatedRoute, private service:ServiceService) {}
+  constructor(private route: ActivatedRoute, private service: ServiceService) { }
 
   ngOnInit(): void {
-    this.post = postsMock.find((post) => post.id === +this.route.snapshot.params['id']);
+    this.post = postsMock.find((post) => post.slug === this.route.snapshot.params['slug']);
 
     this.isLoading = true;
     this.service.getAll().subscribe(
-      (resonse) => {
-        this.posts = resonse;
+      (response) => {
+        this.posts = response;
 
+        this.isLoading = false;
+      }
+    );
+
+    this.route.params.subscribe(
+      (response) => {
+        this.post = postsMock.find((post) => post.slug === this.route.snapshot.params['slug']);
         this.isLoading = false;
       }
     );

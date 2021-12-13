@@ -68,7 +68,7 @@
   <div class="card-container">
     <a
       *ngFor="let post of posts"
-      [routerLink]="['/post', post.id]"
+      [routerLink]="['/post', post.slug]"
       class="card"
     >
       <span>{{ post.title }}</span>
