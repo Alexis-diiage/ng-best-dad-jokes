@@ -32,7 +32,7 @@ export class PostComponent implements OnInit {
     this.route.params.subscribe(
       (response) => {
         this.slug = this.route.snapshot.params['slug'];
-        this.post = postsMock.find((post) => post.slug === this.route.snapshot.params['slug']);
+        this.post = this.posts.find((post) => post.slug === this.route.snapshot.params['slug']);
         this.isLoading = false;
       }
     );
