@@ -13,6 +13,7 @@ export class PostComponent implements OnInit {
   posts: Post[] = postsMock
   post?: Post;
   isLoading = false;
+  slug!: string;
 
   constructor(private route: ActivatedRoute, private service: ServiceService) { }
 
@@ -30,6 +31,7 @@ export class PostComponent implements OnInit {
 
     this.route.params.subscribe(
       (response) => {
+        this.slug = this.route.snapshot.params['slug'];
         this.post = postsMock.find((post) => post.slug === this.route.snapshot.params['slug']);
         this.isLoading = false;
       }
